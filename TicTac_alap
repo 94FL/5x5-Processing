@@ -1,0 +1,138 @@
+//Sajat jatek egy internetes TicTacToe tutorial alapjan
+
+Cell[][] board;  
+
+int cols = 7;  
+int rows = 7;  
+int player = 0; //0=senki, 1=gép, 2=ember
+boolean isComputerTurn;
+
+void setup() {   
+  
+  size(1400, 1600);
+
+  int w = 1400 / cols;
+  int h = 1400 / rows;
+
+  board = new Cell[cols][rows];
+  for (int i = 0; i < cols; i++) {
+    for (int j = 0; j < rows; j++) {
+      board[i][j] = new Cell(i * w, j * h, w, h);
+    }
+  }
+
+  int start = int(random(3));
+  if (start == 1) {
+    isComputerTurn = true;
+    
+  } else if (start == 2) {
+    isComputerTurn = false;
+  } else start = int(random(3));
+}   
+
+void draw() {   
+  background(255);  
+  for (int i = 0; i < cols; i++) {
+    for (int j = 0; j < rows; j++) {
+      board[i][j].display();
+    }
+  }
+}   
+
+void mousePressed() {   
+  for (int i = 0; i < cols; i++) {
+    for (int j = 0; j < rows; j++) {
+      board[i][j].click(mouseX, mouseY);
+    }
+  }
+  calculate;
+}
+
+// Exercise 13-10: Develop the beginnings of a Tic-Tac-Toe game. Create a Cell object that 
+// can exist in one of two states: "O" or nothing. When you click on the cell, its state changes from 
+// nothing to  "O". Here is a framework to get you started.
+
+// A Cell object  
+class Cell  {   
+  float x,y;  
+  float w,h;  
+  int state;  //0 senki, 1 gép, 2 ember
+  int[] possible;
+  int number;
+  
+
+  // Cell Constructor  
+  Cell(float tempX, float tempY, float tempW, float tempH)  {   
+    x = tempX;
+    y = tempY;
+    w = tempW;
+    h = tempH;
+    state = 0;
+ //   for (int i = 0; i < 5; i++) {
+ //     possible[i] = i;
+ //   }
+  }   
+
+  void click(int mx, int my)  {   
+    if (mx > x && mx < x + w && my > y && my < y + h) {
+ //   state = (state + 1) % 3; 
+      if (state == 0) {
+        if (isComputerTurn) {
+          state = 1;
+          isComputerTurn = false;
+        } else {
+          state = 2;
+          isComputerTurn = true;
+        }
+      }
+    }
+    
+  }   
+
+  void display() {   
+    stroke(3);
+    noFill();
+    rect(x,y,w,h);
+    
+    int b = 8;
+    
+    if (state == 0) {
+      // nothing
+    } else if (state == 1) {
+      // Draw an O
+      ellipse(x+w/2,y+h/2,w-b,h-b);
+    } else if (state == 2) {
+      // Draw an X
+      line(x+b,y+b,x+w-b,y+h-b);
+      line(x+w-b,y+b,x+b,y+h-b); 
+    }
+  }
+
+}
+
+//ha a gép tud nyerni, nyerjen
+
+
+//ha a jatekos tudna nyerni, akadalyozza meg
+
+
+//keresse meg a legertekesebb mezoket
+
+
+//rakja a legnagyobb elerheto szamot
+
+//Megnézi, hogy nyert-e valaki
+int tempi = 0;
+int tempj = 0;
+
+for (int i = 0; i < 5; i++) {
+  if (board[i][j].state == 1){
+    tempi++;
+  }
+  
+  for (int j = 0; j <5; j++) {
+    
+  }
+}
+
+//Megnézi, hogy maradt-e üres hely
